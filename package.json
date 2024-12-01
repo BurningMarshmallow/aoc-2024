@@ -9,7 +9,7 @@
     "setup": "node src/setup.js",
     "start": "npm run build && node build/index.js"
   },
-  "author": "Loris Bognanni",
+  "author": "Stanislav Fedianin",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^27.0.3",
