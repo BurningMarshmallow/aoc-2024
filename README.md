@@ -1,23 +1,30 @@
-# Advent of code Typescript 2024
+# Advent of Code
 
-A simple [Advent of code](https://adventofcode.com/) solutions with Typescript and jest for testing.
+## Year 2024
 
-## How to use
+Credits: This repo is based on https://github.com/nanot1m/adventofcode2023
 
-Initial setup
+### Prerequisites
 
- - `npm install`
+- Create `.env` file in the root directory with the following variables:
+  - `SESSION` - your advent of code session id. To get it login at https://adventofcode.com/2024/auth/login and get value from cookie `session`
 
-For each day, where `X` is the day number (1-25):
+### JS
 
- - run `npm run setup X` from your terminal
- - Visit [https://adventofcode.com/{year}/day/X/input](#fill_in_your_day) and copy the contents in your `inputs/dayX/part1.txt` file
- - Implement the necessary logic in `solveForPart1` 
- - Do the same for part 2
- - `npm run start X` to run the day's test
- - `npm test` to run your tests
- - Profit! 🎉
+> NodeJS >= 14
 
-## Credits
+```
+cd js
+```
 
-Generated from template https://github.com/LBognanni/adventofcode-typescript-starter
+To run the solution of the day 1, run the following command:
+
+```
+npm run solve 1
+```
+
+To create the template for the day 2, run the following command:
+
+```
+npm run tpl 2
+```
