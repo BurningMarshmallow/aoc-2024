@@ -1,3 +1,4 @@
+import { add, mul } from "./modules/lib.js"
 import { t } from "./modules/parser.js"
 
 export const useExample = false
@@ -16,32 +17,22 @@ export const exampleInput = `190: 10 19
 export const parseInput = t.arr(t.tpl`${"a|int"}: ${"b|int[]"}`).parse
 
 export function part1(input) {
-	let s = 0
-	for (const { a, b } of input) {
-		let curr = b[0]
-		if (canBeTrue(a, b.slice(1), curr)) {
-			s += a
-		}
-	}
-
-	return s
+	return solve(input, [add, mul])
 }
-
 
 export function part2(input) {
-	let s = 0
-	for (const { a, b } of input) {
-		let curr = b[0]
-		if (canBeTrueWithConcat(a, b.slice(1), curr)) {
-			s += a
-		}
-	}
-
-	return s
+	return solve(input, [add, mul, concatNumbers])
 }
 
+function solve(input, transforms) {
+	return input
+		.values()
+		.filter(({ a, b }) => canBeTrue(a, b.slice(1), b[0], transforms))
+		.map(({ a, _ }) => a)
+		.sum()
+}
 
-function canBeTrue(a, b, curr) {
+function canBeTrue(a, b, curr, transforms) {
 	if (curr > a) {
 		return false
 	}
@@ -50,19 +41,9 @@ function canBeTrue(a, b, curr) {
 		return curr == a
 	}
 
-	return canBeTrue(a, b.slice(1), curr + b[0]) || canBeTrue(a, b.slice(1), curr * b[0])
+	return transforms.some((f) => canBeTrue(a, b.slice(1), f(curr, b[0]), transforms))
 }
 
-function canBeTrueWithConcat(a, b, curr) {
-	if (curr > a) {
-		return false
-	}
-
-	if (b.length == 0) {
-		return curr == a
-	}
-
-	return canBeTrueWithConcat(a, b.slice(1), curr + b[0]) || 
-	canBeTrueWithConcat(a, b.slice(1), curr * b[0]) || 
-	canBeTrueWithConcat(a, b.slice(1), Number.parseInt(curr.toString() + b[0].toString()))
+function concatNumbers(a, b) {
+	return Number.parseInt(a.toString() + b.toString())
 }
