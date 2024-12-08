@@ -31,7 +31,6 @@ export function part2(input) {
 
 function solve(input, antinodesGenerator) {
 	const posByChr = new Map()
-	const posSet = new Set()
 	for (const v of Array2d.traverse(input)) {
 		if (v.value != ".") {
 			if (posByChr.has(v.value)) {
@@ -39,7 +38,6 @@ function solve(input, antinodesGenerator) {
 			} else {
 				posByChr.set(v.value, [v.pos])
 			}
-			posSet.add(v.pos)
 		}
 	}
 
