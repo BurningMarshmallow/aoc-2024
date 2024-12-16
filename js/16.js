@@ -113,34 +113,21 @@ function backward(starts, visited) {
 		const current = queue.pop().value
 		const currentDistance = visited.get(hash(current))
 
-		let p = V.sub(current.pos, current.dir)
-		let prevCost = currentDistance - 1
-		if (prevCost >= 0) {
-			let prevState = { pos: p, dir: current.dir, distance: prevCost }
-			if (visited.has(hash(prevState)) && prevCost == visited.get(hash(prevState))) {
-				if (!bestStates.has(hash(prevState))) {
-					bestStates.add(hash(prevState))
-					queue.push({
-						distance: prevCost,
-						value: prevState
-					})
-				}
-			}
-		}
-
-		prevCost = currentDistance - 1000
-		if (prevCost >= 0) {
-			for (const pd of getTurns(current.dir)) {
-				let prevState = { pos: current.pos, dir: pd, distance: prevCost }
-				if (visited.has(hash(prevState))) {
-					if (prevCost == visited.get(hash(prevState))) {
-						if (!bestStates.has(hash(prevState))) {
-							bestStates.add(hash(prevState))
-							queue.push({
-								distance: prevCost,
-								value: prevState
-							})
-						}
+		let turns = getTurns(current.dir)
+		let prevStates = [
+			{ pos: V.sub(current.pos, current.dir), dir: current.dir, distance: currentDistance - 1 },
+			{ pos: current.pos, dir: turns[0], distance: currentDistance - 1000 },
+			{ pos: current.pos, dir: turns[1], distance: currentDistance - 1000 },
+		]
+		for (const prevState of prevStates) {
+			if (prevState.distance >= 0) {
+				if (prevState.distance == visited.get(hash(prevState))) {
+					if (!bestStates.has(hash(prevState))) {
+						bestStates.add(hash(prevState))
+						queue.push({
+							distance: prevState.distance,
+							value: prevState
+						})
 					}
 				}
 			}
