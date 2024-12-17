@@ -29,6 +29,28 @@ export function* range(start, end, step = 1) {
 	}
 }
 
+
+/**
+ * @param {bigint} [start]
+ * @param {bigint} [end]
+ * @param {bigint} [step]
+ */
+export function* bigintRange(start, end, step = 1n) {
+	if (start === undefined) {
+		start = 0n
+	}
+	if (end === undefined) {
+		end = start
+		start = 0n
+	}
+	if (step === undefined) {
+		step = 1n
+	}
+	for (let i = start; i < end; i += step) {
+		yield i
+	}
+}
+
 /**
  *
  * @param {T} x
