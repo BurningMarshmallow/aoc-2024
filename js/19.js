@@ -28,10 +28,10 @@ export function part2(input) {
 	return designs.map((design) => numOfWays(design, patterns)).reduce(add)
 }
 
-const memoize = (fn) => {
+const memoizeByFirst = (fn) => {
 	let cache = {};
 	return (...args) => {
-		let key = args.join()
+		let key = args[0]
 		if (key in cache) {
 			return cache[key];
 		} else {
@@ -42,7 +42,7 @@ const memoize = (fn) => {
 	}
 }
 
-const possible = memoize((design, patterns) => {
+const possible = memoizeByFirst((design, patterns) => {
 	if (design == "") {
 		return true
 	}
@@ -56,7 +56,7 @@ const possible = memoize((design, patterns) => {
 	}
 })
 
-const numOfWays = memoize((design, patterns) => {
+const numOfWays = memoizeByFirst((design, patterns) => {
 	if (design == "") {
 		return 1
 	}
