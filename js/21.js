@@ -57,7 +57,7 @@ function solve(input, maxDepth) {
 			let key = str.substring(i, i + 2)
 			let subpathMin = 100000000000000000000000000n
 			for (const numericSubPath of numericPaths.get(key)) {
-				subpathMin = bigIntMin(subpathMin, findShortestPathLength(numericSubPath, dirPaths, 1, maxDepth))
+				subpathMin = bigIntMin(subpathMin, findShortestPathLength("A" + numericSubPath, dirPaths, maxDepth - 1))
 			}
 
 			total += subpathMin * BigInt(numericPart)
@@ -124,15 +124,11 @@ function getDir(d) {
 	}
 }
 
-const findShortestPathLength = memoize((path, dirPaths, depth, maxDepth) => {
-	if (depth == 1) {
-		path = "A" + path
-	}
-
+const findShortestPathLength = memoize((path, dirPaths, depth) => {
 	let total = 0n
 	for (let i = 0; i < path.length - 1; i++) {
 		let paths = dirPaths.get(path.substring(i, i + 2))
-		if (depth == maxDepth) {
+		if (depth == 0) {
 			total += BigInt(paths[0].length) // all paths have same length
 		} else {
 			let minPathLength = 100000000000000000000000000n
@@ -140,7 +136,7 @@ const findShortestPathLength = memoize((path, dirPaths, depth, maxDepth) => {
 				dirPath = "A" + dirPath
 				let pathLength = 0n
 				for (let j = 0; j < dirPath.length - 1; j++) {
-					pathLength += findShortestPathLength(dirPath.substring(j, j + 2), dirPaths, depth + 1, maxDepth)
+					pathLength += findShortestPathLength(dirPath.substring(j, j + 2), dirPaths, depth - 1)
 				}
 
 				minPathLength = bigIntMin(minPathLength, pathLength)
