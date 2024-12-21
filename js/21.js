@@ -11,12 +11,12 @@ export const exampleInput = `029A
 456A
 379A`
 
-const numericMap = t.arr(t.arr(t.str(), "")).parse(`789
+const numericKeypad = t.arr(t.arr(t.str(), "")).parse(`789
 456
 123
 #0A`)
 
-const directionalMap = t.arr(t.arr(t.str(), "")).parse(`#^A
+const dirKeypad = t.arr(t.arr(t.str(), "")).parse(`#^A
 <v>`)
 
 export const parseInput = t.arr(t.arr(t.str(), "")).parse
@@ -45,8 +45,8 @@ export function part2(input) {
 }
 
 function solve(input, maxDepth) {
-	let numericPaths = createPaths("0123456789A", numericMap)
-	let dirPaths = createPaths("<>^vA", directionalMap)
+	let numericPaths = createPaths("0123456789A", numericKeypad)
+	let dirPaths = createPaths("<>^vA", dirKeypad)
 
 	let total = 0n
 	for (let str of input) {
@@ -67,10 +67,10 @@ function solve(input, maxDepth) {
 	return total
 }
 
-function createPaths(alph, map) {
+function createPaths(alph, keypad) {
 	let paths = new Map()
 	for (const { a, b } of getPairs(alph)) {
-		paths.set(`${a}${b}`, Array.from(pathsBetween(a, b, map)))
+		paths.set(`${a}${b}`, Array.from(pathsBetween(a, b, keypad)))
 	}
 	return paths
 }
