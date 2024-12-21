@@ -23,6 +23,13 @@ export const DIR_TO_VEC = {
 	R: [1, 0],
 }
 
+export const VEC_T = {
+	U: [0, -1],
+	D: [0, 1],
+	L: [-1, 0],
+	R: [1, 0],
+}
+
 export const DIRS_4 = [DIR_TO_VEC.U, DIR_TO_VEC.R, DIR_TO_VEC.D, DIR_TO_VEC.L]
 
 export const DIRS_8 = [
