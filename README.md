@@ -28,3 +28,10 @@ To create the template for the day 2, run the following command:
 ```
 npm run tpl 2
 ```
+
+### Previous years
+[2023 (Dart)](https://github.com/BurningMarshmallow/aoc-2023)
+
+[2022 (Zig)](https://github.com/BurningMarshmallow/aoc-2022)
+
+[2021 (Kotlin)](https://github.com/BurningMarshmallow/aoc-2021)
